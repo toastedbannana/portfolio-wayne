@@ -1,0 +1,900 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+/* Add a placeholder for Sifonn font. Replace with actual @font-face rule when font files are available */
+@font-face {
+    font-family: 'Sifonn';
+    /* src: url('path/to/sifonn.woff2') format('woff2'),
+           url('path/to/sifonn.woff') format('woff'); */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* CSS Variables - Minimalist Theme */
+:root {
+    /* Brand Colors (matching logo) */
+    --brand-primary: #4A3B37;     /* Dark Brown from logo */
+    --brand-secondary: #736B66;   /* Lighter Brown */
+    --brand-accent: #E4A84A;      /* Gold accent */
+    --brand-dark: #2C2320;        /* Darker shade for depth */
+    --brand-blue: #007bff;        /* Placeholder Blue */
+    --brand-grey: #6c757d;        /* Added Grey */
+    
+    /* Light Mode */
+    --bg-off-white: #F8F8F8;
+    --text-primary: #2C2320;
+    --text-secondary: #4A3B37;
+    --accent-primary: var(--brand-accent); /* Added back for cursor and other accents */
+    --accent-secondary: var(--brand-primary); /* Added back for consistency */
+    --card-bg: #FFFFFF;
+    --border-color: #E0E0E0;
+
+    --font-body: 'Sifonn', 'Plus Jakarta Sans', sans-serif; /* Sifonn added as primary */
+    --font-headings: 'Sifonn', 'Plus Jakarta Sans', sans-serif; /* Sifonn added as primary */
+    
+    /* Rest of the variables remain the same */
+    --container-width: 1100px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --transition-main: 0.3s ease-in-out;
+    --shadow-subtle: 0 2px 8px rgba(0,0,0,0.05);
+    --shadow-medium: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Global Resets & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background-color: var(--brand-grey); /* Changed background to grey */
+    line-height: 1.7;
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+    word-spacing: 0.1em; /* Added global word spacing */
+    letter-spacing: 0.02em; /* Added global letter spacing */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Cursor - Minimalist */
+body.custom-cursor-active {
+    cursor: none;
+}
+
+.custom-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    transition: transform 0.15s ease-out, opacity 0.2s ease-out, background-color 0.2s ease-out, width 0.2s ease-out, height 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-primary);
+}
+
+.cursor-outline {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--accent-primary);
+    opacity: 0.8;
+}
+
+.cursor-outline.hover-effect {
+    transform: scale(1.4);
+    background-color: rgba(228, 168, 74, 0.1);
+    border-color: var(--accent-primary);
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+    font-family: var(--font-headings);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    word-spacing: 0.2em;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+}
+
+/* Animated Text Spacing Fixes */
+.animate-text {
+    display: inline-block;
+}
+
+.animate-text span {
+    display: inline-block;
+    margin-right: 0.02em; /* Space between letters */
+}
+
+.animate-text > span {
+    margin-right: 0.2em; /* Space between words */
+}
+
+/* Ensure last word doesn't have extra spacing */
+.animate-text > span:last-child {
+    margin-right: 0;
+}
+
+/* Regular text spacing */
+p, div, span {
+    word-spacing: 0.15em;
+    letter-spacing: 0.03em;
+}
+
+/* Heading specific spacing */
+h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--brand-dark-brown);
+    word-spacing: 0.25em;
+    letter-spacing: 0.05em;
+}
+
+h1.animate-text > span {
+    margin-right: 0.25em; /* Larger word spacing for animated h1 */
+}
+
+h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    margin-bottom: 2.5rem; /* More space for minimalist feel */
+    font-weight: 600;
+}
+
+h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: var(--accent-secondary); /* Using secondary accent */
+    margin-bottom: 0.75rem;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8; /* Increased line height for better readability */
+}
+
+a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color var(--transition-main);
+}
+
+a:hover {
+    color: var(--brand-dark-brown);
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 25px;
+    position: relative;
+}
+
+/* Content Section Base Styles */
+.content-section {
+    padding: 70px 0;
+    background-color: var(--bg-off-white);
+    position: relative;
+}
+
+/* About Grid Layout */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Stats Styling */
+.stat-item {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--brand-accent);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Navigation Bar --- */
+.top-bar {
+    background-color: transparent; /* Make nav transparent initially for minimalist hero */
+    padding: 1.5rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color var(--transition-main), box-shadow var(--transition-main);
+}
+
+.top-bar.scrolled {
+    background-color: rgba(248, 248, 248, 0.97); /* Slight off-white when scrolled, can be a light grey too */
+    box-shadow: var(--shadow-subtle);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 120px; /* Tripled from original 40px */
+    width: auto;
+    transition: opacity var(--transition-main);
+}
+.top-bar.scrolled .logo img {
+    /* Add style for scrolled logo if needed, e.g. different color */
+}
+
+.logo img:hover {
+    opacity: 0.8;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    margin-left: 2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    position: relative;
+    padding-bottom: 0.3rem;
+    letter-spacing: 0.08em; /* Increased letter spacing for nav links */
+    word-spacing: 0.1em; /* Added word spacing for nav links */
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1.5px;
+    background-color: var(--accent-primary);
+    transition: width var(--transition-main);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--accent-primary);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    background-color: var(--bg-off-white);
+    color: var(--text-primary);
+    padding: 200px 0 120px; /* More padding for fixed nav and minimalist space */
+    min-height: 80vh; /* Adjusted height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-section .tagline {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+}
+
+/* CTA Button - Minimalist */
+.cta-button {
+    display: inline-block;
+    background-color: var(--brand-blue); /* Changed to brand-blue */
+    color: #FFFFFF; /* White text on golden yellow */
+    padding: 0.75rem 1.8rem;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-headings);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em; /* Increased letter spacing for buttons */
+    word-spacing: 0.15em; /* Added word spacing for buttons */
+    transition: background-color var(--transition-main), transform var(--transition-main);
+    border: 1px solid var(--brand-blue); /* Changed to brand-blue */
+}
+
+.cta-button:hover {
+    background-color: var(--brand-dark-brown);
+    border-color: var(--brand-dark-brown);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+/* Technical Drawing Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        /* Subtle grid pattern */
+        linear-gradient(90deg, var(--bg-off-white) 20px, transparent 1%) center,
+        linear-gradient(var(--bg-off-white) 20px, transparent 1%) center,
+        /* Sketch lines */
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='none'/%3E%3Cpath d='M5 5l90 90M15 5l70 90M25 5l50 90' stroke='%23ddd' stroke-width='0.5' stroke-linecap='round' opacity='0.3'/%3E%3Cpath d='M95 5L5 95M85 5L15 95M75 5L25 95' stroke='%23ddd' stroke-width='0.5' stroke-linecap='round' opacity='0.3'/%3E%3C/svg%3E"),
+        /* Graph paper effect */
+        linear-gradient(to right, rgba(200, 200, 200, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(200, 200, 200, 0.1) 1px, transparent 1px);
+    background-size: 
+        24px 24px,
+        24px 24px,
+        300px 300px,
+        12px 12px,
+        12px 12px;
+    opacity: 0.03; /* Further reduced opacity */
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Add subtle paper texture */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    opacity: 0.03; /* Further reduced opacity */
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Add subtle angle lines to sections */
+.content-section::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 80l60-60M30 80l40-60M40 80l20-60' stroke='%23ddd' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+    opacity: 0.02; /* Further reduced opacity */
+    pointer-events: none;
+}
+
+/* Add measurement lines to portfolio items */
+.portfolio-item::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    right: 10px;
+    height: 20px;
+    background: url("data:image/svg+xml,%3Csvg width='200' height='20' viewBox='0 0 200 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10h200M50 5v10M100 5v10M150 5v10' stroke='%23ddd' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+    background-size: contain;
+    opacity: 0.02; /* Further reduced opacity */
+    pointer-events: none;
+}
+
+/* Service Cards - Updated Styling */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding: 1rem;
+}
+
+.service-card {
+    background-color: var(--bg-off-white);
+    padding: 2.5rem 2rem;
+    border-radius: var(--border-radius-md);
+    text-align: left;
+    transition: transform var(--transition-main);
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-subtle);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card i {
+    font-size: 2rem;
+    color: var(--brand-blue);
+    margin-bottom: 1.5rem;
+    transition: color var(--transition-main);
+}
+
+.service-card:hover i {
+    color: var(--brand-accent);
+}
+
+.service-card h3 {
+    color: var(--brand-dark);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+/* Portfolio Section - Modern Horizontal Scroll */
+.work-section {
+    background-color: var(--bg-off-white);
+    overflow: hidden;
+    padding: 70px 0;
+}
+
+.portfolio-container {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.portfolio-grid {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scroll-behavior: smooth;
+    padding-bottom: 2rem; /* Space for custom scrollbar */
+}
+
+.portfolio-grid::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.portfolio-item {
+    flex: 0 0 400px; /* Fixed width for each item */
+    scroll-snap-align: start;
+    position: relative;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-subtle);
+    aspect-ratio: 4/3;
+    background-color: var(--bg-off-white);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform var(--transition-main), box-shadow var(--transition-main);
+    overflow: hidden;
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.portfolio-nav button {
+    background: var(--bg-off-white);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-subtle);
+}
+
+.portfolio-nav button:hover {
+    background: var(--brand-accent);
+    color: white;
+}
+
+/* Contact Section - Updated Styling */
+.contact-section {
+    background-color: var(--bg-off-white);
+    color: var(--text-primary);
+    padding: 5rem 0;
+    position: relative;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+.contact-info {
+    text-align: left;
+}
+
+.contact-info h3 {
+    color: var(--brand-dark);
+    margin-bottom: 1.5rem;
+}
+
+.contact-info p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.contact-form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-subtle);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.contact-form input,
+.contact-form textarea {
+    background-color: var(--bg-off-white);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
+    width: 100%;
+    padding: 1rem;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: border-color var(--transition-main), box-shadow var(--transition-main);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--brand-accent);
+    box-shadow: 0 0 0 2px rgba(228, 168, 74, 0.1);
+}
+
+.map-container {
+    width: 100%;
+    height: 400px;
+    margin-top: 4rem;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .portfolio-item {
+        flex: 0 0 300px;
+    }
+}
+
+/* --- Footer --- */
+.bottom-bar {
+    background-color: var(--bg-off-white); /* Reverted to off-white */
+    padding: 3rem 0;
+    color: var(--text-primary); /* Adjusted text color for off-white background */
+}
+
+.footer-logo img {
+    height: 35px;
+    margin-bottom: 1rem;
+    /* For SVG logos, if it has a fill, this won't work. Consider CSS `filter` or inline SVG for color control */
+    /* Example filter to make it appear light: filter: invert(1) brightness(2); */
+    /* Or, ensure SVG uses `currentColor` for fill where possible */
+}
+
+.social-links a {
+    color: var(--text-secondary); /* Adjusted for off-white background */
+    margin: 0 0.6rem;
+    font-size: 1.1rem;
+}
+
+.social-links a:hover {
+    color: var(--accent-primary);
+}
+
+.bottom-bar p {
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    color: var(--text-secondary); /* Adjusted for off-white background */
+    max-width: 100%;
+    line-height: 1.5;
+    word-spacing: 0.12em; /* Added word spacing for footer text */
+    letter-spacing: 0.02em; /* Added letter spacing for footer text */
+}
+
+/* Mobile Responsiveness - Minimalist */
+@media (max-width: 768px) {
+    .nav-content {
+        flex-direction: column; /* Stack logo and toggle vertically */
+        align-items: center;    /* Center them horizontally */
+        gap: 0.5rem; /* Add a small gap between logo and toggle */
+    }
+    .mobile-menu-toggle {
+        display: block !important; 
+        order: 2; /* Ensure toggle comes after the logo */
+        margin-left: 0; /* Remove auto margin, parent handles centering */
+    }
+    .nav-links {
+        display: none; /* Hide by default on mobile */
+        flex-direction: column;
+        width: 100%;
+        background-color: #FFFFFF; /* White background for dropdown */
+        position: absolute;
+        top: 100%; /* Position below the nav bar */
+        left: 0;
+        padding: 1rem 0;
+        box-shadow: var(--shadow-medium);
+        border-top: 1px solid var(--border-color);
+    }
+    .nav-links.active {
+        display: flex; /* Show when active */
+    }
+    .nav-links a {
+        margin: 0.75rem 1.5rem; /* Spacing for mobile nav links */
+        text-align: center;
+        color: var(--text-primary);
+    }
+    .nav-links a::after { /* Remove underline for mobile nav */
+        display: none;
+    }
+
+    .hero-section {
+        padding: 150px 0 80px;
+    }
+    h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+    h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .service-card {
+        padding: 2rem 1.5rem;
+    }
+    .content-section {
+        padding: 50px 0;
+    }
+}
+
+/* Styling for the mobile menu toggle button (JS adds this class) */
+.mobile-menu-toggle {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: none; /* Hidden by default, shown by media query */
+}
+.top-bar.scrolled .mobile-menu-toggle {
+    color: var(--text-primary); /* Ensure it's visible on scrolled nav */
+}
+
+
+/* AOS Animation Overrides (optional) */
+[data-aos="fade-up"] {
+  transition-property: transform, opacity;
+}
+
+/* Add text animation classes */
+.animate-slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.8s ease forwards;
+}
+
+.animate-slide-in {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideIn 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Line Breaker - Minimal Style */
+.line-breaker {
+    width: 50px;
+    height: 1px;
+    background: var(--brand-accent);
+    margin: 1.5rem auto;
+    position: relative;
+    opacity: 0.6;
+}
+
+/* Welding Spark Animation */
+@keyframes spark-fall {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    20% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--spark-x), var(--spark-y)) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes spark-glow {
+    0% { box-shadow: 0 0 4px 1px var(--brand-accent); }
+    50% { box-shadow: 0 0 8px 2px var(--brand-accent); }
+    100% { box-shadow: 0 0 4px 1px var(--brand-accent); }
+}
+
+.welding-spark {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--brand-accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000;
+    animation: 
+        spark-fall 0.8s ease-out forwards,
+        spark-glow 0.2s ease-in-out infinite;
+}
+
+/* Logo Animation with Enhanced Sparks */
+@keyframes vibrate {
+    0% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(1px, -1px); }
+    60% { transform: translate(-1px, -1px); }
+    80% { transform: translate(1px, 1px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes sparkle {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+    100% { filter: brightness(1); }
+}
+
+.logo.animate {
+    animation: vibrate 0.3s ease-in-out, sparkle 0.5s ease-in-out;
+}
+
+/* Remove theme toggle styles */
+.theme-toggle {
+    display: none;
+}
+
+/* X-Ray Text Effect */
+.xray-text {
+    position: relative;
+    animation: xrayPulse 0.5s ease-in-out;
+    text-shadow: 0 0 10px var(--brand-accent);
+}
+
+@keyframes xrayPulse {
+    0% {
+        color: var(--text-primary);
+        text-shadow: none;
+    }
+    50% {
+        color: #fff;
+        text-shadow: 0 0 15px var(--brand-accent),
+                     0 0 30px var(--brand-accent),
+                     0 0 45px var(--brand-accent);
+    }
+    100% {
+        color: var(--text-primary);
+        text-shadow: none;
+    }
+}
+
+/* Ambient Spark Background */
+.ambient-spark {
+    position: fixed;
+    pointer-events: none;
+    background: radial-gradient(circle at center, var(--brand-accent) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    animation: ambientSparkle 3s ease-in-out infinite;
+}
+
+@keyframes ambientSparkle {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+/* Floating WhatsApp Button */
+.whatsapp-float {
+    position: fixed;
+    width: auto; /* Allow width to fit content */
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366; /* Official WhatsApp Green */
+    color: #FFF;
+    padding: 0 20px; /* Add horizontal padding */
+    border-radius: 30px; /* Keep it pill-shaped */
+    text-align: center;
+    font-size: 1rem; /* Font size for the text "Let's" */
+    font-weight: 500;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none; /* Ensure no underline from <a> tag */
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+}
+
+.whatsapp-float i {
+    font-size: 1.8rem; /* Size for the WhatsApp icon */
+    margin-left: 8px; /* Space between "Let's" and the icon */
+    line-height: 1; /* Helps with vertical alignment if needed */
+} 
